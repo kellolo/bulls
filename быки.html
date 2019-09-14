@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script type="text/javascript">
+	//PC = 		1234 
+	// YOU = 	0987 => PC : 0 быков 0 коров
+	// YOU = 	4321 => PC : 0 быков 4 коровы
+	// YOU = 	2134 => PC : 2 быка 2 коровы
+	// 10 ходов
+
+
+	game ()
+
+	function game () {
+		var num = getNum ();
+		var rounds = 10;
+		var status = true;
+
+		while (status) {
+			if (rounds >= 1) {
+				status = round (num)
+				status ? console.log (`Осталось ${--rounds} ходов`) : console.log ('YOU WIN')
+			} else {
+				status = false;
+				console.log ('FATALITY')
+				return false
+			}
+		}
+	}
+
+
+	function round (eta) {
+		var bulls = 0;
+		var cows = 0;
+		var attempt = [...prompt ('Enter 4 digits')] // '1234'
+		
+		// var arr = []
+		// for (let i = 0; i < 4; i++) {
+		// 	arr.push (+attempt.substr (i, 1))
+		// }
+
+		for (var i = 0; i < 4; i++) {
+			if (+attempt [i] === eta [i]) {
+				bulls ++
+			} else if (eta.indexOf (+attempt [i]) >= 0) {
+				cows++
+			}
+		}
+
+		console.log (`Ваш вариант ${attempt}`)
+		console.log (`Быков - ${bulls}; Коров - ${cows};`)
+		//проверка всех чисел
+		// оглашение результатов раунда
+		return (bulls === 4 ? false : true)
+	}
+
+	function randomize () {
+		return Math.floor (Math.random () * 10)
+	}
+
+	function getNum () {
+		var arr = [];
+		while (arr.length < 4) {
+			var item = randomize ();
+			if (arr.indexOf(item) < 0) arr.push (item)
+		}
+		console.log (arr)
+		return arr
+	}
+</script>
+</body>
+</html>
